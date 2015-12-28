@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 /*
-** Copyright 2009, The Android Open Source Project
+** Copyright 2015, The Android Open Source Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -84,7 +84,7 @@
     The default represents a dual-mode smartphone -->
     <string translatable="false" name="config_wifi_p2p_device_type">1-0050F204-1</string>
 
-    <bool name="config_ui_enableFadingMarquee">true</bool>
+    <bool name="config_ui_enableFadingMarquee">false</bool>
 
     <!-- List of file paths for USB host busses to exclude from USB host support.
          For example, if the first USB bus on the device is used to communicate
@@ -237,5 +237,8 @@
 
     <!-- reference volume index for music stream to limit headphone volume and display warning -->
     <integer name="config_safe_media_volume_index">6</integer>
+
+    <!-- Set lowmemorykiller threshold -->
+    <integer name="config_lowMemoryKillerMinFreeKbytesAbsolute">16384</integer>
 
 </resources>

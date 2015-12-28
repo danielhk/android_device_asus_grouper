@@ -1,4 +1,4 @@
-# Copyright (C) 2010 The Android Open Source Project
+# Copyright (C) 2015 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,6 +39,7 @@ TARGET_CPU_VARIANT := cortex-a9
 TARGET_USERIMAGES_USE_EXT4 := true
 
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 681574400
+BOARD_CACHEIMAGE_PARTITION_SIZE := 464519168
 # Disable journaling on system.img to save space.
 BOARD_SYSTEMIMAGE_JOURNAL_SIZE := 0
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 6567231488
@@ -57,6 +58,9 @@ WIFI_DRIVER_FW_PATH_STA     := "/vendor/firmware/fw_bcmdhd.bin"
 WIFI_DRIVER_FW_PATH_AP      := "/vendor/firmware/fw_bcmdhd_apsta.bin"
 
 TARGET_BOOTLOADER_BOARD_NAME := grouper
+TARGET_NO_BOOTLOADER := true
+
+TARGET_GCC_VERSION_EXP := 4.9
 
 BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_ALSA_AUDIO := false
@@ -85,25 +89,3 @@ TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 BOARD_SEPOLICY_DIRS += \
         device/asus/grouper/sepolicy
 
-BOARD_SEPOLICY_UNION += \
-        file_contexts \
-        genfs_contexts \
-        bluetooth.te \
-        device.te \
-        domain.te \
-        drmserver.te \
-        init_shell.te \
-        file.te \
-        gpsd.te \
-        keystore.te \
-        lmkd.te \
-        mediaserver.te \
-        recovery.te \
-        rild.te \
-        sensors_config.te \
-        surfaceflinger.te \
-        system_app.te \
-        system_server.te \
-        ueventd.te \
-        vold.te \
-        radio.te

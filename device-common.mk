@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2010 The Android Open Source Project
+# Copyright (C) 2015 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,7 +39,8 @@ include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 PRODUCT_COPY_FILES += \
     device/asus/grouper/ueventd.grouper.rc:root/ueventd.grouper.rc \
     device/asus/grouper/init.grouper.usb.rc:root/init.grouper.usb.rc \
-    device/asus/grouper/gps.conf:system/etc/gps.conf
+    device/asus/grouper/gps.conf:system/etc/gps.conf \
+    device/asus/grouper/twrp.fstab:recovery/root/etc/twrp.fstab
 
 ifneq ($(TARGET_PREBUILT_WIFI_MODULE),)
 PRODUCT_COPY_FILES += \

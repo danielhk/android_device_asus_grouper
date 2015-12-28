@@ -1,4 +1,4 @@
-# Copyright (C) 2010 The Android Open Source Project
+# Copyright (C) 2015 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -40,11 +40,10 @@ include device/asus/grouper/BoardConfigCommon.mk
 
 TARGET_RECOVERY_FSTAB = device/asus/grouper/fstab.grouper
 
-MALLOC_IMPL := dlmalloc
-
 # TWRP
 TW_THEME := portrait_hdpi
 BOARD_HAS_NO_REAL_SDCARD := true
 RECOVERY_SDCARD_ON_DATA := true
 TW_NO_USB_STORAGE := false
 TW_INCLUDE_L_CRYPTO := true
+TARGET_BOOTANIMATION_SIZE := 800x450
