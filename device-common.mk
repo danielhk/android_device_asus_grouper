@@ -37,8 +37,10 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 
 PRODUCT_COPY_FILES += \
-    device/asus/grouper/ueventd.grouper.rc:root/ueventd.grouper.rc \
     device/asus/grouper/init.grouper.usb.rc:root/init.grouper.usb.rc \
+    device/asus/grouper/ueventd.grouper.rc:root/ueventd.grouper.rc \
+    device/asus/grouper/gps_daemon.sh:system/bin/gps_daemon.sh \
+    device/asus/grouper/touch_fw_update.sh:system/bin/touch_fw_update.sh \
     device/asus/grouper/gps.conf:system/etc/gps.conf \
     device/asus/grouper/twrp.fstab:recovery/root/etc/twrp.fstab
 
@@ -47,6 +49,7 @@ PRODUCT_COPY_FILES += \
     $(TARGET_PREBUILT_WIFI_MODULE):system/lib/modules/bcm4329.ko
 endif
 
+# permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
@@ -74,6 +77,10 @@ PRODUCT_PACKAGES := \
     wpa_supplicant \
     wpa_supplicant.conf
 
+#help GL work in M
+PRODUCT_PACKAGES += \
+    libdgv1
+
 PRODUCT_PACKAGES += \
     lights.grouper \
     audio.primary.grouper \
@@ -92,6 +99,7 @@ PRODUCT_PACKAGES += \
 
 # NFC packages
 PRODUCT_PACKAGES += \
+    libnfc\
     nfc.grouper \
     Nfc \
     Tag
