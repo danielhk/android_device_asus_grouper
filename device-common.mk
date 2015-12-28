@@ -28,7 +28,7 @@ PRODUCT_PROPERTY_OVERRIDES := \
 
 # Fix Gapps permissions
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/etc/99ApkPermissions:system/etc/init.d/99ApkPermissions
+    $(LOCAL_PATH)/config/etc/99ApkPermissions:system/etc/init.d/99ApkPermissions
 
 # disable Captive portal check
 PRODUCT_PROPERTY_OVERRIDES += \
