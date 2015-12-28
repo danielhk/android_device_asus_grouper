@@ -80,7 +80,7 @@ PRODUCT_COPY_FILES += \
     device/asus/grouper/config/usr/raydium_ts.idc:system/usr/idc/raydium_ts.idc \
     device/asus/grouper/config/usr/sensor00fn11.idc:system/usr/idc/sensor00fn11.idc
 
-PRODUCT_PACKAGES := \
+PRODUCT_PACKAGES += \
     libwpa_client \
     hostapd \
     dhcpcd.conf \
