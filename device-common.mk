@@ -26,6 +26,10 @@ PRODUCT_PROPERTY_OVERRIDES := \
     persist.sys.media.legacy-drm=true \
     drm.service.enabled=true
 
+# Fix Gapps permissions
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/etc/99ApkPermissions:system/etc/init.d/99ApkPermissions
+
 # disable Captive portal check
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.disable_captive_portal=1
