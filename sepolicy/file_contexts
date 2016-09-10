@@ -2,8 +2,8 @@
 /dev/elan-iap                     u:object_r:elan_ip_device:s0
 /dev/knvmap                       u:object_r:knv_device:s0
 /dev/lightsensor                  u:object_r:sensors_device:s0
-/dev/mi1040                       u:object_r:camera_device:s0
-/dev/tegra_camera                 u:object_r:camera_device:s0
+/dev/mi1040                       u:object_r:video_device:s0
+/dev/tegra_camera                 u:object_r:video_device:s0
 /dev/nvhost.*                     u:object_r:nvhost_device:s0
 /dev/nvhost-ctrl                  u:object_r:gpu_device:s0
 /dev/nvhost-gr2d                  u:object_r:gpu_device:s0
@@ -40,3 +40,4 @@
 /system/bin/setup_fs	--	u:object_r:setupfs_exec:s0
 /system/bin/touch_fw_update.sh        u:object_r:touchfw_exec:s0
 /system/bin/gps_daemon.sh        u:object_r:glgps_exec:s0
+/system/vendor/bin/tf_daemon	u:object_r:tee_exec:s0

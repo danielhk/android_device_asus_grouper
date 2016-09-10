@@ -33,4 +33,4 @@ dontaudit sensors_config system_data_file:dir remove_name;
 dontaudit sensors_config self:capability dac_override;
 
 #
-allow sensors_config sysfs:file write;
+allow sensors_config sysfs:file { read write };
