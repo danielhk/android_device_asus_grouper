@@ -92,3 +92,6 @@ TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 BOARD_SEPOLICY_DIRS += \
         device/asus/grouper/sepolicy
 
+# Kernel inline build
+TARGET_KERNEL_SOURCE := kernel/asus/tegra
+TARGET_KERNEL_CONFIG := tegra3_android_defconfig
