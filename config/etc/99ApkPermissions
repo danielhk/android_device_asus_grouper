@@ -4,6 +4,7 @@
 LOG_TAG="ApkPermissions"
 GOOGLE_PLAY_SERVICE=com.google.android.gms
 SETUPWIZARD=com.google.android.setupwizard
+DONE_FILE=/data/ApkPermissions_done
 
 logi ()
 {
@@ -27,12 +28,33 @@ grant_permission ()
 
   case $? in
     0) logi "$1 granted $2";;
-    *) failed "error" $?;;
+    *) failed "error granting $2" $?;;
   esac
 }
 
+# check if already done
+if [ -f ${DONE_FILE} ]; then
+  exit 0;
+fi
+
 # Google SetupWizard indicate Gapps installed
-GAPPS_EXIST=`pm list packages com.google.android | grep 'setupwizard'`
+GAPPS=`pm list packages com.google.android | grep 'google.android'`
+local count=0
+while [ -z "${GAPPS}" ]
+do
+  count=$(($count+1))
+  if [ $count -gt 10 ]; then
+    # most likely from a dirty flash, consider done
+    echo 1 > ${DONE_FILE}
+    loge "time out getting pm list!"
+    exit -1
+  fi
+  logi "wait for Package Manager to start"
+  sleep 10
+  GAPPS=`pm list packages com.google.android | grep 'google.android'`
+done
+
+GAPPS_EXIST=`echo ${GAPPS} | grep 'setupwizard'`
 
 if [ -z "${GAPPS_EXIST}" ];
 then
@@ -43,6 +65,9 @@ else
   # Google Play Service
   grant_permission ${GOOGLE_PLAY_SERVICE} android.permission.ACCESS_FINE_LOCATION 
   grant_permission ${GOOGLE_PLAY_SERVICE} android.permission.ACCESS_COARSE_LOCATION
+
+  # indicate done if success
+  echo 1 > ${DONE_FILE}
 fi
 
 exit 0
