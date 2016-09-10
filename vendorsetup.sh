@@ -22,3 +22,4 @@
 
 add_lunch_combo aosp_grouper-userdebug
 add_lunch_combo omni_grouper-userdebug
+add_lunch_combo du_grouper-userdebug
