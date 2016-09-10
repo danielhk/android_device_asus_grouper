@@ -119,6 +119,8 @@ PRODUCT_PACKAGES += \
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
+    fsck.f2fs \
+    mkfs.f2fs \
     e2fsck \
     setup_fs
 
@@ -147,4 +149,4 @@ PRODUCT_COPY_FILES += \
     device/asus/grouper/config/etc/audio_policy.conf:system/etc/audio_policy.conf
 
 WIFI_BAND := 802_11_BG
- $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330/device-bcm.mk)
+$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330/device-bcm.mk)
