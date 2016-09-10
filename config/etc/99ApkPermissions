@@ -60,7 +60,7 @@ if [ -z "${GAPPS_EXIST}" ];
 then
   logi "Gapps not insalled"
 else
-  grant_permission ${SETUPWIZARD} android.permission.READ_PHONE_STATE
+  grant_permission ${SETUPWIZARD} android.permission.READ_PRECISE_PHONE_STATE
 
   # Google Play Service
   grant_permission ${GOOGLE_PLAY_SERVICE} android.permission.ACCESS_FINE_LOCATION 
