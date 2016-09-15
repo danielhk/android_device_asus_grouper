@@ -1,0 +1,82 @@
+commit 410f4034110fb240adbc778a75bf46876b621e37
+Author: daniel_hk <daniel.p6800@gmail.com>
+Date:   Thu Sep 15 20:18:46 2016 +0800
+Extra sepolicy for Nexus 7 (2012) blobs to work with Android-N
+
+ app.te    |  2 +-
+ domain.te | 21 ++++++++++++++++++---
+ 2 files changed, 19 insertions(+), 4 deletions(-)
+
+diff --git a/app.te b/app.te
+index f2adf37..83edf10 100644
+--- a/app.te
++++ b/app.te
+@@ -274,7 +274,7 @@ allow appdomain cache_file:dir getattr;
+ 
+ # Superuser capabilities.
+ # bluetooth requires net_admin and wake_alarm.
+-neverallow { appdomain -bluetooth } self:capability *;
++neverallow { appdomain -bluetooth -shell } self:capability *;
+ neverallow { appdomain -bluetooth } self:capability2 *;
+ 
+ # Block device access.
+diff --git a/domain.te b/domain.te
+index 1ac33f1..7a9672b 100644
+--- a/domain.te
++++ b/domain.te
+@@ -379,6 +379,7 @@ neverallow {
+   -installd
+   -postinstall_dexopt
+   -dex2oat
++  -shell
+ } dalvikcache_data_file:file no_w_file_perms;
+ 
+ neverallow {
+@@ -387,6 +388,7 @@ neverallow {
+   -installd
+   -postinstall_dexopt
+   -dex2oat
++  -shell
+   -zygote
+ } dalvikcache_data_file:dir no_w_dir_perms;
+ 
+@@ -428,6 +430,7 @@ neverallow { domain userdebug_or_eng(`-dumpstate -shell -su') } su_exec:file no_
+ # which, long term, need to go away.
+ neverallow * {
+   file_type
++  -system_file
+   -system_data_file
+   -apk_data_file
+   -app_data_file
+@@ -441,7 +444,7 @@ neverallow * self:process { execstack execheap };
+ 
+ # prohibit non-zygote spawned processes from using shared libraries
+ # with text relocations. b/20013628 .
+-neverallow { domain -appdomain } file_type:file execmod;
++#neverallow { domain -appdomain -glgps -keystore } file_type:file execmod;
+ 
+ neverallow { domain -init } proc:{ file dir } mounton;
+ 
+@@ -563,8 +566,20 @@ neverallow * domain:file { execute execute_no_trans entrypoint };
+ # Instead, if access to part of debugfs is desired, it should have a
+ # more specific label.
+ # TODO: fix system_server and dumpstate
+-neverallow { domain -init -system_server -dumpstate } debugfs:file no_rw_file_perms;
+-
++neverallow {
++  domain
++  -init
++  -system_server
++  -dumpstate
++  -surfaceflinger
++  -zygote
++  -dex2oat
++  -cameraserver
++  -audioserver
++  -bootanim
++  -shell
++  -untrusted_app
++} debugfs:file no_rw_file_perms;
+ neverallow {
+   domain
+   -init
