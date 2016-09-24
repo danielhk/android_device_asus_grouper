@@ -1,11 +1,13 @@
-commit 410f4034110fb240adbc778a75bf46876b621e37
+commit 71ea67cf17432bc3e5505b8a259b25ab4e116cb0
 Author: daniel_hk <daniel.p6800@gmail.com>
-Date:   Thu Sep 15 20:18:46 2016 +0800
+Date:   Thu Sep 15 23:24:47 2016 +0800
 Extra sepolicy for Nexus 7 (2012) blobs to work with Android-N
 
- app.te    |  2 +-
- domain.te | 21 ++++++++++++++++++---
- 2 files changed, 19 insertions(+), 4 deletions(-)
+ app.te           |  2 +-
+ domain.te        | 26 +++++++++++++++++++++++---
+ priv_app.te      |  2 +-
+ untrusted_app.te |  4 ++--
+ 4 files changed, 27 insertions(+), 7 deletions(-)
 
 diff --git a/app.te b/app.te
 index f2adf37..83edf10 100644
@@ -21,18 +23,19 @@ index f2adf37..83edf10 100644
  
  # Block device access.
 diff --git a/domain.te b/domain.te
-index 1ac33f1..7a9672b 100644
+index 1ac33f1..46eb9df 100644
 --- a/domain.te
 +++ b/domain.te
-@@ -379,6 +379,7 @@ neverallow {
+@@ -379,6 +379,8 @@ neverallow {
    -installd
    -postinstall_dexopt
    -dex2oat
 +  -shell
++  -system_app
  } dalvikcache_data_file:file no_w_file_perms;
  
  neverallow {
-@@ -387,6 +388,7 @@ neverallow {
+@@ -387,6 +389,7 @@ neverallow {
    -installd
    -postinstall_dexopt
    -dex2oat
@@ -40,7 +43,7 @@ index 1ac33f1..7a9672b 100644
    -zygote
  } dalvikcache_data_file:dir no_w_dir_perms;
  
-@@ -428,6 +430,7 @@ neverallow { domain userdebug_or_eng(`-dumpstate -shell -su') } su_exec:file no_
+@@ -428,6 +431,7 @@ neverallow { domain userdebug_or_eng(`-dumpstate -shell -su') } su_exec:file no_
  # which, long term, need to go away.
  neverallow * {
    file_type
@@ -48,7 +51,7 @@ index 1ac33f1..7a9672b 100644
    -system_data_file
    -apk_data_file
    -app_data_file
-@@ -441,7 +444,7 @@ neverallow * self:process { execstack execheap };
+@@ -441,7 +445,7 @@ neverallow * self:process { execstack execheap };
  
  # prohibit non-zygote spawned processes from using shared libraries
  # with text relocations. b/20013628 .
@@ -57,7 +60,7 @@ index 1ac33f1..7a9672b 100644
  
  neverallow { domain -init } proc:{ file dir } mounton;
  
-@@ -563,8 +566,20 @@ neverallow * domain:file { execute execute_no_trans entrypoint };
+@@ -563,8 +567,24 @@ neverallow * domain:file { execute execute_no_trans entrypoint };
  # Instead, if access to part of debugfs is desired, it should have a
  # more specific label.
  # TODO: fix system_server and dumpstate
@@ -75,8 +78,47 @@ index 1ac33f1..7a9672b 100644
 +  -audioserver
 +  -bootanim
 +  -shell
++  -priv_app
++  -system_app
 +  -untrusted_app
++  -mediacodec
++  -mediaserver
 +} debugfs:file no_rw_file_perms;
  neverallow {
    domain
    -init
+diff --git a/priv_app.te b/priv_app.te
+index d380a67..138771c 100644
+--- a/priv_app.te
++++ b/priv_app.te
+@@ -108,7 +108,7 @@ neverallow priv_app domain:netlink_socket *;
+ 
+ # Too much leaky information in debugfs. It's a security
+ # best practice to ensure these files aren't readable.
+-neverallow priv_app debugfs:file read;
++#neverallow priv_app debugfs:file read;
+ 
+ # Do not allow privileged apps to register services.
+ # Only trusted components of Android should be registering
+diff --git a/untrusted_app.te b/untrusted_app.te
+index 6bc6843..370107f 100644
+--- a/untrusted_app.te
++++ b/untrusted_app.te
+@@ -61,7 +61,7 @@ allow untrusted_app media_rw_data_file:file create_file_perms;
+ 
+ # Traverse into /mnt/media_rw for bypassing FUSE daemon
+ # TODO: narrow this to just MediaProvider
+-allow untrusted_app mnt_media_rw_file:dir search;
++#allow untrusted_app mnt_media_rw_file:dir search;
+ 
+ # allow cts to query all services
+ allow untrusted_app servicemanager:service_manager list;
+@@ -117,7 +117,7 @@ neverallow untrusted_app domain:netlink_socket *;
+ 
+ # Too much leaky information in debugfs. It's a security
+ # best practice to ensure these files aren't readable.
+-neverallow untrusted_app debugfs_type:file read;
++#neverallow untrusted_app debugfs_type:file read;
+ 
+ # Do not allow untrusted apps to register services.
+ # Only trusted components of Android should be registering
