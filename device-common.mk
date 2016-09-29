@@ -42,7 +42,6 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 
 PRODUCT_COPY_FILES += \
-    device/asus/grouper/rootdir/init.grouper.usb.rc:root/init.grouper.usb.rc \
     device/asus/grouper/rootdir/init.recovery.grouper.rc:root/init.recovery.grouper.rc \
     device/asus/grouper/rootdir/ueventd.grouper.rc:root/ueventd.grouper.rc \
     device/asus/grouper/config/bin/gps_daemon.sh:system/bin/gps_daemon.sh \
