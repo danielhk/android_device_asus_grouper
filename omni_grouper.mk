@@ -18,7 +18,7 @@
 # device-specific aspects (drivers) with a device-agnostic
 # product configuration (apps).
 #
-TARGET_BOOTANIMATION_SIZE := 800x450
+TARGET_BOOTANIMATION_SIZE := 720x480
 
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/omni/config/common.mk)
